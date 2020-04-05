@@ -11,7 +11,27 @@ export class ProjectsService {
 
   constructor(private httpClient: HttpClient) { }
 
+  private getUrl(): string {
+    return `${BASE_URL}${this.model}`;
+  }
+
+  private getUrlForId(id) {
+    return `${this.getUrl()}/${id}`;
+  }
+
   all() {
-    return this.httpClient.get(`${BASE_URL}${this.model}`);
+    return this.httpClient.get(this.getUrl());
+  }
+
+  create(project) {
+    return this.httpClient.post(this.getUrl(), project);
+  }
+
+  update(project) {
+    return this.httpClient.patch(this.getUrlForId(project.id), project);
+  }
+
+  delete(projectId) {
+    return this.httpClient.delete(this.getUrlForId(projectId));
   }
 }
