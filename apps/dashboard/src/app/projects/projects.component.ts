@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectsService, Project } from '@workshop/core-data';
+import { Project, ProjectsService } from '@workshop/core-data';
 
 @Component({
   selector: 'app-projects',
@@ -23,7 +23,8 @@ export class ProjectsComponent implements OnInit {
   }
 
   getProjects() {
-    this.projects = this.projectsService.all();
+    this.projectsService.all()
+      .subscribe((result: any) => this.projects = result);
   }
 
   cancel() {
