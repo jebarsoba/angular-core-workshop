@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectsService, Project } from '@workshop/core-data';
-import { Observable } from 'rxjs';
+import { Project, ProjectsService } from '@workshop/core-data';
+
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -16,14 +16,31 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit() {
     this.getProjects();
+    this.resetProject();
   }
 
   selectProject(project) {
     this.selectedProject = project;
   }
 
+  resetProject() {
+    const emptyProject: Project = {
+      id: '',
+      title: '',
+      details: '',
+      percentComplete: 0,
+      approved: false
+    };
+
+    this.selectProject(emptyProject);
+  }
+
   getProjects() {
     this.projects$ = this.projectsService.all();
+  }
+
+  saveProject(project) {
+    console.log('SAVING PROJECT', project); 
   }
 
   deleteProject(project) {
@@ -32,6 +49,6 @@ export class ProjectsComponent implements OnInit {
   }
 
   cancel() {
-    this.selectProject(null);
+    this.resetProject();
   }
 }
