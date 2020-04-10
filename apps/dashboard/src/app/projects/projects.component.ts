@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectsService, Project } from '@workshop/core-data';
-import { Observable } from 'rxjs';
+import { Project, ProjectsService } from '@workshop/core-data';
+
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -10,8 +10,6 @@ export class ProjectsComponent implements OnInit {
   primaryColor = 'red';
   projects$;
   selectedProject: Project;
-
-
 
   constructor(private projectsService: ProjectsService) {
   }
@@ -41,7 +39,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   saveProject(project) {
-    if(!project.id) {
+    if (!project.id) {
       this.createProject(project);
     } else {
       this.updateProject(project);
